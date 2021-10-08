@@ -1,23 +1,64 @@
-// 1
-const arr = ['234','123','321','421','341','412','214'];
-for (let i in arr){
-    if (arr[i].startsWith('2') || arr[i].startsWith('4')){
-        console.log(arr[i]);
-    }
-}
 
-// 2
-for (let i = 2; i <= 100; i++) {
-    let flag = 0;
+// Что должна делать программа:
+// — спрашивает пользователя: "Угадай число от 1 до 100".
+// — если пользовательское число больше, то бот выводит "Загаданное число меньше" и предлагает ввести новый вариант;
+// — если пользовательское число меньше, то бот выводит "Загаданное число больше" и предлагает ввести новый вариант;
+// — если пользователь ввел не число, то выводит сообщение "Введи число!" и предлагает ввести новый вариант;
+// — если пользователь нажимает "Отмена", то игра заканчивается и выводится сообщение "Игра окончена".
+// — если пользовательское число равно загаданному, то игра заканчивается и выводит сообщение "Поздравляю, Вы угадали!!!".
+// Программа должны быть выполнена с помощью рекурсии, без единого цикла.
+// Загаданное число должно храниться «в замыкании»
+const game = () => {
+    const number = Math.floor(Math.random() * 100);
+    console.log(number);
 
-    for (let j = 2; j < i; j++) {
-        if (i % j == 0) {
-            flag = 1;
-            break;
+
+    let attempts = 10;
+    alert(`welcome to "guess the number" game, u have to find the hidden number in ${attempts} attempts`);
+    let user = 0;
+
+
+    let guess = () => {
+        
+        if (attempts == 0 ) {
+            alert(`you lost!`);
+            
+            return;
         }
-    }
+        user = prompt('enter your number');
+        if (isNaN(user)){ 
+            alert('enter numbers');
+            user = prompt('enter your number');
+        }
+        if (user === null) {
+            alert('game is ended');
+            return;
+        }
+        if (user < number) {
+            alert(`the number is bigger, now you have ${attempts - 1} attempts`);
+            attempts--;
+            guess();
+        }
+        if (user > number) {
+            alert(`the number is less, now you have ${attempts - 1} attempts`);
+            attempts--;
+            guess();
+        }
+        if (user == number) {
+            alert(`you won! the number was "${ number}"`);
+            return;
+        }    
+    };
+    
+    guess();
+};
 
-    if (i > 1 && flag == 0) {
-        console.log(`${i} divisors - 1:${i}`);
-    }
-}
+const restart = () => {
+    game();
+    const askToRestart = confirm("do u wanna play again?");
+    if (askToRestart) restart();
+    return;
+};
+restart();
+alert('wish u all the best!');
+
