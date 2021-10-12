@@ -1,0 +1,8 @@
+.today {
+    font-weight: 700;
+}
+
+.weekend {
+    font-style: italic;
+    color: pink;
+}
