@@ -22,3 +22,21 @@ DomElement.prototype.create = function(){
 const newElem = new DomElement('.elem', 100, 500, 'red', 20, 'absolute');
 newElem.create();
 document.addEventListener('DOMContentLoaded', () => document.body.append(elem));
+
+document.body.addEventListener("keydown", function (event) {
+    if (event.code != "ArrowRight" && event.code != "ArrowLeft" &&
+        event.code != "ArrowUp" && event.code != "ArrowDown") return;
+
+    let rectElem = elem.getBoundingClientRect();
+    let x = rectElem.x + pageXOffset,
+        y = rectElem.y + pageYOffset;
+
+    if (event.code == "ArrowRight") x += 10 ;
+    if (event.code == "ArrowLeft")  x -= 10 ;
+    if (event.code == "ArrowUp")    y -= 10 ;
+    if (event.code == "ArrowDown")  y += 10 ;
+    
+    elem.style.position = "absolute";
+    elem.style.left = x + "px";
+    elem.style.top = y + "px";
+});
